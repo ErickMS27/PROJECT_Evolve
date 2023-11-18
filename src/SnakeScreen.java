@@ -10,10 +10,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class SnakeScreen extends JPanel implements ActionListener {
+
     private static final int LARGURA_TELA = 1300;
     private static final int ALTURA_TELA = 750;
     private static final int TAMANHO_BLOCO = 50;
@@ -28,15 +28,25 @@ public class SnakeScreen extends JPanel implements ActionListener {
     private int blockY;
     private char direct = 'D';
     private boolean itsLoading = false;
+    private JButton resetButton;
     Timer timer;
     Random random = new Random();
 
-    SnakeScreen() {
+    public SnakeScreen() {
         this.setPreferredSize(new Dimension(1300, 750));
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.addKeyListener(new KeyReaderAdapter());
-        this.startGame();
+        createResetButton();
+        startGame();
+    }
+
+    private void createResetButton() {
+        resetButton = new JButton("Restart Game");
+        resetButton.setFocusable(false);
+        resetButton.addActionListener(new ResetButtonListener());
+        resetButton.setVisible(false);
+        add(resetButton);
     }
 
     public void startGame() {
@@ -64,6 +74,7 @@ public class SnakeScreen extends JPanel implements ActionListener {
                     g.setColor(new Color(3, 129, 79));
                     g.fillRect(this.axisX[i], this.axisY[i], 50, 50);
                 }
+
             }
 
             g.setColor(new Color(230, 50, 10));
@@ -72,7 +83,10 @@ public class SnakeScreen extends JPanel implements ActionListener {
             g.drawString("Pontos: " + this.blocksEated, (1300 - metrics.stringWidth("Pontos: " + this.blocksEated)) / 2, g.getFont().getSize());
         } else {
             this.gameOver(g);
+            resetButton.setVisible(true);
         }
+
+        resetButton.setBounds(LARGURA_TELA / 2 - 100, ALTURA_TELA - 100, 200, 50);
 
     }
 
@@ -89,7 +103,14 @@ public class SnakeScreen extends JPanel implements ActionListener {
         g.setColor(new Color(230, 50, 10));
         g.setFont(new Font("Ink Free", 1, 75));
         FontMetrics fonteFinal = this.getFontMetrics(g.getFont());
-        g.drawString("\ud83d\ude1d Game Over.", (1300 - fonteFinal.stringWidth("Game Over")) / 2, 375);
+        g.drawString("\ud83d\ude1d Game Over", (1300 - fonteFinal.stringWidth("Game Over")) / 2, 375);
+    }
+
+    private class ResetButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            resetGame();
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -183,5 +204,16 @@ public class SnakeScreen extends JPanel implements ActionListener {
             }
 
         }
+    }
+
+    private void resetGame() {
+        snakeBody = 6;
+        blocksEated = 0;
+        itsLoading = true;
+        direct = 'D';
+        timer.restart();
+        createBlock();
+        resetButton.setVisible(false);
+        repaint();
     }
 }
