@@ -91,8 +91,11 @@ public class SnakeScreen extends JPanel implements ActionListener {
     }
 
     private void createBlock() {
-        this.blockX = this.random.nextInt(26) * 50;
-        this.blockY = this.random.nextInt(15) * 50;
+        int maxX = (LARGURA_TELA / TAMANHO_BLOCO) - 1;
+        int maxY = (ALTURA_TELA / TAMANHO_BLOCO) - 1;
+
+        this.blockX = (random.nextInt(maxX - 2) + 1) * TAMANHO_BLOCO;
+        this.blockY = (random.nextInt(maxY - 2) + 1) * TAMANHO_BLOCO;
     }
 
     public void gameOver(Graphics g) {
@@ -211,6 +214,15 @@ public class SnakeScreen extends JPanel implements ActionListener {
         blocksEated = 0;
         itsLoading = true;
         direct = 'D';
+
+        int startX = LARGURA_TELA / 2;
+        int startY = ALTURA_TELA / 2;
+
+        for (int i = 0; i < snakeBody; ++i) {
+            axisX[i] = startX - i * TAMANHO_BLOCO;
+            axisY[i] = startY;
+        }
+
         timer.restart();
         createBlock();
         resetButton.setVisible(false);
