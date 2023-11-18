@@ -94,8 +94,19 @@ public class SnakeScreen extends JPanel implements ActionListener {
         int maxX = (LARGURA_TELA / TAMANHO_BLOCO) - 1;
         int maxY = (ALTURA_TELA / TAMANHO_BLOCO) - 1;
 
-        this.blockX = (random.nextInt(maxX - 2) + 1) * TAMANHO_BLOCO;
-        this.blockY = (random.nextInt(maxY - 2) + 1) * TAMANHO_BLOCO;
+        do {
+            this.blockX = (random.nextInt(maxX - 2) + 1) * TAMANHO_BLOCO;
+            this.blockY = (random.nextInt(maxY - 2) + 1) * TAMANHO_BLOCO;
+        } while (isBlockInsideSnake());
+    }
+
+    private boolean isBlockInsideSnake() {
+        for (int i = 0; i < snakeBody; ++i) {
+            if (axisX[i] == blockX && axisY[i] == blockY) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void gameOver(Graphics g) {
