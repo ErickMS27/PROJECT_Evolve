@@ -10,7 +10,7 @@ public class StartGame extends JFrame {
 
     StartGame() {
         this.add(new SnakeScreen());
-        this.setTitle("SNAKE Game - Joga da Cobrinha");
+        this.setTitle("Project EVOLVE V.0.1");
         this.setDefaultCloseOperation(3);
         this.setResizable(false);
         this.pack();
