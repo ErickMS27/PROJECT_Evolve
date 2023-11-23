@@ -1,5 +1,6 @@
 package src;
 
+import src.SnakeScreen;
 import java.awt.Component;
 import javax.swing.JFrame;
 
