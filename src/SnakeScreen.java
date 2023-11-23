@@ -17,15 +17,16 @@ public class SnakeScreen extends JPanel implements ActionListener {
     private static final int LARGURA_TELA = 1300;
     private static final int ALTURA_TELA = 750;
     private static final int TAMANHO_BLOCO = 50;
-    private static final int UNIDADES = 390;
+    private static final int UNIDADES = LARGURA_TELA * ALTURA_TELA / (TAMANHO_BLOCO * TAMANHO_BLOCO);
     private static final int INTERVALO = 200;
     private static final String NOME_FONTE = "Ink Free";
-    private final int[] axisX = new int[390];
-    private final int[] axisY = new int[390];
+    private final int[] axisX = new int[UNIDADES];
+    private final int[] axisY = new int[UNIDADES];
     private int snakeBody = 6;
     private int blocksEated;
-    private int blockX;
-    private int blockY;
+    private int[] snakeX, snakeY;
+    private int[] blocksX, blocksY;
+    private int blockX, blockY;
     private char direct = 'D';
     private boolean itsLoading = false;
     private JButton resetButton;
@@ -51,9 +52,27 @@ public class SnakeScreen extends JPanel implements ActionListener {
 
     public void startGame() {
         this.createBlock();
+        this.createInitialPositions();
         this.itsLoading = true;
-        this.timer = new Timer(200, this);
+        this.timer = new Timer(INTERVALO, this);
         this.timer.start();
+
+        if (timer != null){
+            timer.start();
+        }
+    }
+
+    private void createInitialPositions() {
+
+        snakeX = new int[snakeBody];
+        snakeY = new int[snakeBody];
+        blocksX = new int[blocksEated];
+        blocksY = new int[blocksEated];
+
+        for (int i = 0; i < snakeBody; i++) {
+            snakeX[i] = 50 - i * 50;
+            snakeY[i] = 50;
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -81,6 +100,7 @@ public class SnakeScreen extends JPanel implements ActionListener {
             g.setFont(new Font("Ink Free", 1, 40));
             FontMetrics metrics = this.getFontMetrics(g.getFont());
             g.drawString("Pontos: " + this.blocksEated, (1300 - metrics.stringWidth("Pontos: " + this.blocksEated)) / 2, g.getFont().getSize());
+            resetButton.setVisible(false);
         } else {
             this.gameOver(g);
             resetButton.setVisible(true);
@@ -91,12 +111,12 @@ public class SnakeScreen extends JPanel implements ActionListener {
     }
 
     private void createBlock() {
-        int maxX = (LARGURA_TELA / TAMANHO_BLOCO) - 1;
-        int maxY = (ALTURA_TELA / TAMANHO_BLOCO) - 1;
+        int maxX = (LARGURA_TELA / TAMANHO_BLOCO);
+        int maxY = (ALTURA_TELA / TAMANHO_BLOCO);
 
         do {
-            this.blockX = (random.nextInt(maxX - 2) + 1) * TAMANHO_BLOCO;
-            this.blockY = (random.nextInt(maxY - 2) + 1) * TAMANHO_BLOCO;
+            this.blockX = (random.nextInt(maxX)) * TAMANHO_BLOCO;
+            this.blockY = (random.nextInt(maxY)) * TAMANHO_BLOCO;
         } while (isBlockInsideSnake());
     }
 
@@ -138,7 +158,7 @@ public class SnakeScreen extends JPanel implements ActionListener {
     }
 
     private void crawl() {
-        for(int i = this.snakeBody; i > 0; --i) {
+        for(int i = this.snakeBody; i > 0; i--) {
             this.axisX[i] = this.axisX[i - 1];
             this.axisY[i] = this.axisY[i - 1];
         }
@@ -221,19 +241,14 @@ public class SnakeScreen extends JPanel implements ActionListener {
     }
 
     private void resetGame() {
+        for(int i = 0; i < axisX.length; i++) {
+            axisX[i] = 0;
+            axisY[i] = 0;
+        }
         snakeBody = 6;
         blocksEated = 0;
         itsLoading = true;
         direct = 'D';
-
-        int startX = LARGURA_TELA / 2;
-        int startY = ALTURA_TELA / 2;
-
-        for (int i = 0; i < snakeBody; ++i) {
-            axisX[i] = startX - i * TAMANHO_BLOCO;
-            axisY[i] = startY;
-        }
-
         timer.restart();
         createBlock();
         resetButton.setVisible(false);

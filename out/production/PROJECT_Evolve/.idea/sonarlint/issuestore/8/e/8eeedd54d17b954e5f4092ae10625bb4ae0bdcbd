@@ -1,0 +1,16 @@
+
+f
+java:S1192S"IDefine a constant instead of duplicating this literal "Pontos: " 4 times.(¸ß’‹8ß¼šô¾1
+m
+java:S1192Q"PUse already-defined constant 'NOME_FONTE' instead of duplicating its value here.(şÿâ8ß¼šô¾1
+W
+java:S1161;":Add the "@Override" annotation above this method signature(³ıŸê8ª½šô¾1
+D	java:S131“""Add a default case to this switch.(Â¬˜€ùÿÿÿÿ8¸½šô¾1
+Ÿ
+java:S1186Ã"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(İæáŠ8¹½šô¾1
+W
+java:S1161Æ":Add the "@Override" annotation above this method signature(İ¼õA8º½šô¾1
+D	java:S131Ç""Add a default case to this switch.(ù‚Óøÿÿÿÿ8º½šô¾1
+I
+java:S3398à",Move this method into "ResetButtonListener".(¨®
+8¼½šô¾1
