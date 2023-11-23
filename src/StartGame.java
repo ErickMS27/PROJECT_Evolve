@@ -1,21 +1,15 @@
 package src;
 
-import src.SnakeScreen;
-import java.awt.Component;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class StartGame extends JFrame {
     public static void main(String[] args) {
-        new StartGame();
-    }
-
-    StartGame() {
-        this.add(new SnakeScreen());
-        this.setTitle("Project EVOLVE V.0.1");
-        this.setDefaultCloseOperation(3);
-        this.setResizable(false);
-        this.pack();
-        this.setVisible(true);
-        this.setLocationRelativeTo((Component)null);
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Game Application");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 600);
+            frame.add(new StartGamePanel());
+            frame.setVisible(true);
+        });
     }
 }
