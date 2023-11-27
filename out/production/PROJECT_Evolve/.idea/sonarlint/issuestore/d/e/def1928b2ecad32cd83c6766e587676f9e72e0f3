@@ -1,10 +1,10 @@
 
-k
-java:S1192"IDefine a constant instead of duplicating this literal "Ink Free" 4 times.(‚î¹’úÿÿÿÿ8Ñ®£ë¿1
-c
+d
+java:S1192"IDefine a constant instead of duplicating this literal "Ink Free" 4 times.(‚î¹’úÿÿÿÿ
+\
 java:S3252
-"AUse static access with "javax.swing.SwingConstants" for "CENTER".(¨öşûÿÿÿÿ8Ö®£ë¿1
-n
-java:S3252"LUse static access with "javax.swing.WindowConstants" for "DISPOSE_ON_CLOSE".(Ûç¥·üÿÿÿÿ8Ù®£ë¿1
-c
-java:S3252"AUse static access with "javax.swing.SwingConstants" for "CENTER".(Î’Íãùÿÿÿÿ8Ú®£ë¿1
+"AUse static access with "javax.swing.SwingConstants" for "CENTER".(¨öşûÿÿÿÿ
+g
+java:S3252"LUse static access with "javax.swing.WindowConstants" for "DISPOSE_ON_CLOSE".(Ûç¥·üÿÿÿÿ
+\
+java:S3252"AUse static access with "javax.swing.SwingConstants" for "CENTER".(Î’Íãùÿÿÿÿ
