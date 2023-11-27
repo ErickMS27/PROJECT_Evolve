@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="PROJECT_Evolve" level="project" />
+    <orderEntry type="library" exported="" name="PROJECT_Evolve" level="project" />
   </component>
   <component name="SonarLintModuleSettings">
     <option name="uniqueId" value="bb83f50b-2df8-404b-9ae1-e38d549da891" />
