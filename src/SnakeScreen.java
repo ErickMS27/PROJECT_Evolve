@@ -11,7 +11,7 @@ import java.util.Random;
 public class SnakeScreen extends JPanel implements ActionListener {
 
     private static final int LARGURA_TELA = 1300;
-    private static final int ALTURA_TELA = 750;
+    private static final int ALTURA_TELA = 700;
     private static final int TAMANHO_BLOCO = 50;
     private static final int UNIDADES = LARGURA_TELA * ALTURA_TELA / (TAMANHO_BLOCO * TAMANHO_BLOCO);
     private static final int INTERVALO = 200;
@@ -30,7 +30,7 @@ public class SnakeScreen extends JPanel implements ActionListener {
     Random random = new Random();
 
     public SnakeScreen() {
-        this.setPreferredSize(new Dimension(1300, 750));
+        this.setPreferredSize(new Dimension(LARGURA_TELA, ALTURA_TELA));
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.addKeyListener(new KeyReaderAdapter());
@@ -113,7 +113,11 @@ public class SnakeScreen extends JPanel implements ActionListener {
         do {
             this.blockX = (random.nextInt(maxX)) * TAMANHO_BLOCO;
             this.blockY = (random.nextInt(maxY)) * TAMANHO_BLOCO;
-        } while (isBlockInsideSnake());
+        } while (isBlockInsideSnake() || isBlockInsideWall());
+    }
+
+    private boolean isBlockInsideWall() {
+        return blockX < 0 || blockX >= LARGURA_TELA || blockY < 0 || blockY >= ALTURA_TELA;
     }
 
     private boolean isBlockInsideSnake() {
@@ -192,18 +196,13 @@ public class SnakeScreen extends JPanel implements ActionListener {
             }
         }
 
-        if (this.axisX[0] < 0 || this.axisX[0] > 1300) {
-            this.itsLoading = false;
-        }
-
-        if (this.axisY[0] < 0 || this.axisY[0] > 750) {
+        if (this.axisX[0] < 0 || this.axisX[0] >= LARGURA_TELA || this.axisY[0] < 0 || this.axisY[0] >= ALTURA_TELA) {
             this.itsLoading = false;
         }
 
         if (!this.itsLoading) {
             this.timer.stop();
         }
-
     }
 
     public class KeyReaderAdapter extends KeyAdapter {
@@ -247,7 +246,7 @@ public class SnakeScreen extends JPanel implements ActionListener {
         direct = 'D';
         timer.restart();
         createBlock();
-        resetButton.setVisible(false);
+        resetButton.setBounds(LARGURA_TELA / 2 - 100, ALTURA_TELA - 100, 200, 50);
         repaint();
     }
 }
